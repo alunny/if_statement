@@ -12,6 +12,13 @@ def one_hundred!
   10 * 10
 end
 
+class View
+  include IfStatement::Features
+
+  def with_output_buffer
+  end
+end
+
 IfStatement.define(:dummy, true)
 IfStatement.define(:count) { 7 + 5 }
 IfStatement.define(:admin) { admin? }
@@ -20,6 +27,7 @@ IfStatement.define(:falsy) { true and false }
 describe "IfStatement::Features" do
   before do
     @user = User.new
+    @view = View.new
   end
 
   describe "#feature?" do
@@ -37,12 +45,20 @@ describe "IfStatement::Features" do
   end
 
   describe "#feature" do
-    it "should execute the block if the feature is enabled" do
-      actual = @user.feature :admin do
-        one_hundred!
+    describe "when the feature is enabled" do
+      it "should call with_output_buffer if it's available" do
+        @view.should_receive(:with_output_buffer)
+
+        @view.feature(:dummy) { nil }
       end
 
-      actual.should == 100
+      it "should execute the block otherwise" do
+        actual = @user.feature :admin do
+          one_hundred!
+        end
+
+        actual.should == 100
+      end
     end
 
     it "should return nil if the feature is disabled" do
