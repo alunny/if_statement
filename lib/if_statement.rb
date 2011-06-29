@@ -7,7 +7,7 @@ module IfStatement
     # usage
     #    IfStatement.setup do
     #       set :messaging, true
-    #       set :admin, { current_user.admin? }
+    #       set(:admin) { current_user.admin? }
     #    end
     def setup &block
       def set identifier, value=nil, &block
