@@ -1,5 +1,6 @@
 require 'if_statement/version'
 require 'if_statement/features'
+require 'if_statement/railtie' if defined? Rails
 
 module IfStatement
   class << self
