@@ -1,5 +1,5 @@
+require 'if_statement/version'
 require 'if_statement/features'
-#require 'if_statement/import'
 
 module IfStatement
   class << self

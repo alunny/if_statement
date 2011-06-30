@@ -4,6 +4,8 @@ require 'rake/testtask'
 require 'rdoc/task'
 require 'rspec/core'
 require 'rspec/core/rake_task'
+require 'bundler/gem_helper'
+Bundler::GemHelper.install_tasks
 
 desc 'Default: run unit tests.'
 task :default => :spec
