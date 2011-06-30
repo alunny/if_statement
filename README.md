@@ -30,14 +30,34 @@ feature :nuke do
 end
 ```
 
+## Installation
+
+In a Rails 3 project, add this to your `Gemfile`:
+
+``` ruby
+gem 'if_statement'
+```
+
+and then run `bundle install`
+
 ## Setting what these thing evalute to
 
-The best place for now would be `config/initializers/if_statement.rb`:
+Global settings should be in `config/features.rb`:
 
 ``` ruby
 IfStatement.setup do
     set(:nuts) { current_person.has_no :allergies }
-    set :nuke, Rails.env.production?
+    set :wipe_db, false
+end
+```
+
+Environment specific settings can be in `config/features/environment.rb`:
+
+``` ruby
+# config/features/development.rb
+IfStatement.setup do
+    set(:nuts) { current_person.has_no :allergies }
+    set :wipe_db, true
 end
 ```
 
