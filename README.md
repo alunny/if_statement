@@ -12,19 +12,34 @@ Because none of the existing ones worked exactly like I wanted. Also, I hadn't w
 
 in a view
 
-    <%= feature :nuts do %>
-    <ul>
-        <li>Almonds</li>
-        <li>Walnuts</li>
-        <li>Hazelnuts</li>
-    </ul>
-    <% end %>
+``` erb
+<%= feature :nuts do %>
+<ul>
+    <li>Almonds</li>
+    <li>Walnuts</li>
+    <li>Hazelnuts</li>
+</ul>
+<% end %>
+```
 
 everywhere else
 
-    feature :nuke do
-        kill_everyone!
-    end
+``` ruby
+feature :nuke do
+    kill_everyone!
+end
+```
+
+## Setting what these thing evalute to
+
+The best place for now would be `config/initializers/if_statement.rb`:
+
+``` ruby
+IfStatement.setup do
+    set(:nuts) { current_person.has_no :allergies }
+    set :nuke, Rails.env.production?
+end
+```
 
 ## Probably better bets
 
